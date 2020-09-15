@@ -34,7 +34,7 @@ A collection of best practices and strategies for authoring orbs. CircleCI orbs 
 - All commands available to the user should complete a full task. Do not create a command for the sole purpose of being a “partial” to another command unless it can be used on its own.
 - It is possible not all CLI commands need to be transformed into an orb command. Single line commands with no parameters do not necessarily need to have an orb command alias.
 - Command descriptions should call out any dependencies or assumptions, particularly if you intend for the command to run outside of a provided executor in your orb.
-- It is a good idea to check for the existence of required parameters, environment variables or other dependancies as a part of your command.
+- It is a good idea to check for the existence of required parameters, environment variables or other dependencies as a part of your command.
 
 example:
 ```
@@ -84,6 +84,11 @@ echo `export PATH="$PATH:<<parameters.install-path>>"` >> $BASH_ENV
 
 - Deploy full CI/CD for your orb with a fully automated build > test > deploy workflow using the [Orb Starter Kit (Beta)](https://github.com/CircleCI-Public/orb-starter-kit). This handles all of the below.
 - Optional: Utilize a destructured orb pattern to more easily maintain individual orb components.
+
+### Sample Data
+
+- Sample data neccesary for testing your Orb in CI/CD pipelines should be kept as small as possible, e.g a single `composer.json` or `package.json` file with minimal dependencies.
+- Sample data should live under the `sample/` directory in the orb's repository, when possible.
 
 ### Deployment
 

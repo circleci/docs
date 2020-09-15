@@ -83,8 +83,8 @@ GitHub user key in addition to the deploy key because each deploy key is valid
 for only _one_ repository while a GitHub user key has access to _all_ of your
 GitHub repositories.
 
-Provide CircleCI with a GitHub user key on your project's
-**Project Settings > Checkout SSH keys** page.
+Provide CircleCI with a GitHub user key in your project's **Project Settings** >
+**SSH keys**. Scroll down the page to **User Key** and click **Authorize with Github**.
 CircleCI creates and associates this new SSH key with your GitHub user account
 for access to all your repositories.
 
@@ -258,7 +258,7 @@ then copy and paste the key you created in step 1.
 Check "Allow write access",
 then click "Add key".
 
-3. Go to [https://app.circleci.com/settings/project/github/you/test-repo/ssh](https://app.circleci.com/settings/project/github/you/test-repo/ssh){:rel="nofollow"},
+3. Go to your project settings, click on SSH Keys, and "Add SSH key",
 and add the key you created in step 1.
 In the "Hostname" field,
 enter "github.com",

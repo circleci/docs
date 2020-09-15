@@ -37,15 +37,17 @@ If you find you need to rename an org or repo that you have previously hooked up
 3. Confirm that your plan, projects and settings have been transferred successfully.
 4. You are then free to create a new org/repo with the previously-used name in your VCS, if desired.
 
-**Note**: If you do not follow these steps, it is possible that you may lose access to your org or repo settings, including **environment variables** and **contexts**.
+    **Note**: If you do not follow these steps, it is possible that you may lose access to your org or repo settings, including **environment variables** and     **contexts**.
 
 ## Creating and Using a Context
 
-1. Using the new version of the CircleCI application, navigate to the Organization Settings page by clicking on the link in the sidebar. **Note:** Any organization member can create a context, but only organization administrators can restrict it with a security group.
+1. Using the new version of the CircleCI application, navigate to the Organization Settings page by clicking on the link in the sidebar. 
+
+    **Note:** Organization members can create a context, but only organization administrators can restrict it with a security group. The one exception to this case is BitBucket organizations, which require a user to have the `create repositories` workspace permission, regardless of their other permissions on the workspace or the repositories it contains.
     
     ![Contexts]({{ site.baseurl }}/assets/img/docs/org-settings-contexts-v2.png)
 
-  **If you are using the old version of the CircleCI application, you can access the Organization Settings using the following URL format: `https://circleci.com/gh/organizations/<org>/settings#contexts`, substituting your organization/GitHub username. If you are using CircleCI Server, Organization Settings can still be accessed as normal from the main navigation.
+    **Note: If you are using the old version of the CircleCI application**, you can access the Organization Settings using the following URL format: `https://circleci.com/gh/organizations/<org>/settings#contexts`, substituting your organization/GitHub username. If you are using CircleCI Server, Organization Settings can still be accessed as normal from the main navigation.
 
 2. Click the Create Context button and add a unique name for your Context. After you click the Create Context button in the dialog box, the Context appears in a list with Security set to `All members` to indicate that anyone in your organization can access this Context at runtime.
 
@@ -87,12 +89,11 @@ The default security group is `All members` and enables any member of the organi
 
 **Note:** Bitbucket repositories do **not** provide an API that allows CircleCI contexts to be restricted, only GitHub projects include the ability to restrict contexts with security groups.
 
-## Running Workflows with a Restricted Context
+### Running Workflows with a Restricted Context
 
-To invoke a job that uses a restricted context, a user must be a member of one of the security groups for the context. If the user running the workflow does not have access to the context, the workflow will fail with the `Unauthorized` status.
+To invoke a job that uses a restricted context, a user must be a member of one of the security groups for the context and must sign up for CircleCI. If the user running the workflow does not have access to the context, the workflow will fail with the `Unauthorized` status.
 
 ### Restrict a Context to a Security Group or Groups
-{:.no_toc}
 
 You must be an organization administrator to complete the following task.
 
@@ -105,6 +106,11 @@ You must be an organization administrator to complete the following task.
 
 Only members of the selected groups may now use the context in their workflows or add or remove environment variables for the context. 
 
+### Making Changes to Context Restrictions
+Changes to security group restrictions for Contexts might not take effect immediately due to caching. To make sure settings are applied immediately, it is best practice for the Org Administrator to refresh permissions once the change has been made. The **Refresh Permissions** button can be found on the [Account Integrations](https://app.circleci.com/settings/user) page.
+
+Administrators of CircleCI Server installations can find the **Refresh Permissions** button at `<circleci-hostname>/account`.
+
 ### Approving Jobs that use Restricted Contexts
 {:.no_toc}
 
@@ -116,7 +122,8 @@ version: 2.1
 # jobs declaration for build, test and deploy not displayed
 
 workflows:
-  build-test-deploy:
+  jobs:
+    build-test-deploy:
       - build
       - hold:
           type: approval # presents manual approval button in the UI
@@ -173,6 +180,8 @@ Environment variables are used according to a specific precedence order, as foll
 Environment variables declared inside a shell command `run step`, for example `FOO=bar make install`, will override environment variables declared with the `environment` and `contexts` keys. Environment variables added on the Contexts page will take precedence over variables added on the Project Settings page.
 
 ## Secrets Masking
+
+_Secrets masking is not currently available on self-hosted installations of CircleCI Server_
 
 Contexts hold project secrets or keys that perform crucial functions for your applications. For added security CircleCI performs secret masking on the build output, obscuring the `echo` or `print` output of contexts.
 

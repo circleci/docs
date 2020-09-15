@@ -42,6 +42,8 @@ include::usage-stats.adoc[]
 
 include::jvm-heap-size-configuration.adoc[]
 
+include::ssh-server.adoc[]
+
 include::ops.adoc[]
 
 include::backup.adoc[]
@@ -55,5 +57,7 @@ include::admin-faq.adoc[]
 include::customizations.adoc[]
 
 include::architecture.adoc[]
+
+include::storage-lifecycle.adoc[]
 
 :leveloffset: -1

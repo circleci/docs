@@ -20,13 +20,13 @@ Pipeline values are available to all pipeline configurations and can be used wit
 
 Value                       | Description
 ----------------------------|--------------------------------------------------------
-pipeline.id                 | A globally unique id representing for the pipeline
+pipeline.id                 | A [globally unique id](https://en.wikipedia.org/wiki/Universally_unique_identifier) representing for the pipeline
 pipeline.number             | A project unique integer id for the pipeline
-pipeline.project.git_url    | E.g. https://github.com/circleci/circleci-docs
-pipeline.project.type       | E.g. "github"
-pipeline.git.tag            | The tag triggering the pipeline
-pipeline.git.branch         | The branch triggering the pipeline
-pipeline.git.revision       | The current git revision
+pipeline.project.git_url    | The URL where the current project is hosted. E.g. https://github.com/circleci/circleci-docs
+pipeline.project.type       | The lower-case name of the VCS provider, E.g. “github”, “bitbucket”.
+pipeline.git.tag            | The name of the git tag that was pushed to trigger the pipeline. If the pipeline was not triggered by a tag, then this is the empty string.
+pipeline.git.branch         | The name of the git branch that was pushed to trigger the pipeline.
+pipeline.git.revision       | The long (40-character) git SHA that is being built.
 pipeline.git.base_revision  | The previous git revision
 {: class="table table-striped"}
 
@@ -166,7 +166,7 @@ Pipeline parameters which are defined in configuration are always in scope, with
 
 ## Conditional Workflows
 
-Use the `when` clause (or the inverse clause `unless`) under a workflow declaration, with a truthy or falsy value, to decide whether or not to run that workflow. Truthy/falsy calues can be booleans, numbers, and strings. Falsy would be any of: false, 0, empty string, null, and NaN. Everything else would be truthy.
+Use the `when` clause (or the inverse clause `unless`) under a workflow declaration, with a truthy or falsy value, to decide whether or not to run that workflow. Truthy/falsy values can be booleans, numbers, and strings. Falsy would be any of: false, 0, empty string, null, and NaN. Everything else would be truthy.
 
 The most common use of this construct is to use a pipeline parameter as the value, allowing an API trigger to pass that parameter to determine which workflows to run.
 

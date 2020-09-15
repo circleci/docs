@@ -6,8 +6,7 @@ description: "Using Workflows to Schedule Jobs"
 categories: [configuring-jobs]
 order: 30
 ---
-
-To increase the speed of your software development through faster feedback, shorter reruns, and more efficient use of resources, configure Workflows. This document describes the Workflows feature and provides example configurations in the following sections:
+Workflows help you increase the speed of your software development through faster feedback, shorter reruns, and more efficient use of resources. This document describes the Workflows feature and provides example configurations in the following sections:
 
 * TOC
 {:toc}
@@ -42,9 +41,10 @@ Workflows may appear with one of the following states:
 ### Limitations
 {:.no_toc}
 
-Projects that have pipelines enabled may use the CircleCI API to trigger workflows. Projects that do not enable pipelines will run as if the workflows did not exist when triggered by the API. **Note:** Builds without workflows require a `build` job.
+* Projects that have pipelines enabled may use the CircleCI API to trigger workflows. 
+* Config without workflows requires a job called `build`.
 
-Refer to the [Workflows]({{ site.baseurl }}/2.0/faq) section of the FAQ for additional information and limitations.
+Refer to the [Workflows]({{ site.baseurl }}/2.0/faq/#workflows) section of the FAQ for additional information and limitations.
 
 ## Workflows Configuration Examples
 
@@ -212,19 +212,19 @@ The following screenshot demonstrates a workflow on hold.
 ![Switch Organization Menu]({{ site.baseurl }}/assets/img/docs/approval_job.png)
 
 
-By clicking on the pending job's name (`build`, in the screenshot above ), an approval dialog box appears
-requesting that you approve or cancel the holding job.
+By clicking on the pending job's name (`build`, in the screenshot above ), an approval dialog box appears requesting that you approve or cancel the holding job.
 
 After approving, the rest of the workflow runs as directed.
 
 ## Scheduling a Workflow
 
-It can be inefficient and expensive to run a workflow for every commit for every branch. Instead, you can schedule a workflow
-to run at a certain time for specific branches. This will disable commits from triggering jobs on those branches.
+It can be inefficient and expensive to run a workflow for every commit for every branch. Instead, you can schedule a workflow to run at a certain time for specific branches. This will disable commits from triggering jobs on those branches.
 
 Consider running workflows that are resource-intensive or that generate reports on a schedule rather than on every commit by adding a `triggers` key to the configuration. The `triggers` key is **only** added under your `workflows` key. This feature enables you to schedule a workflow run by using `cron` syntax to represent Coordinated Universal Time (UTC) for specified branches. 
 
 **Note:** In CircleCI v2.1, when no workflow is provided in config, an implicit one is used. However, if you declare a workflow to run a scheduled build, the implicit workflow is no longer run. You must add the job workflow to your config in order for CircleCI to also build on every commit.
+
+**Note:** Please note that when you schedule a workflow, the workflow will be counted as an individual user seat.
 
 ### Nightly Example
 {:.no_toc}

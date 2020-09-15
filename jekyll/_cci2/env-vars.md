@@ -25,6 +25,8 @@ Use Contexts to [further restrict access to environment variables](#setting-an-e
 
 ## Secrets Masking
 
+_Secrets masking is not currently available on self-hosted installations of CircleCI Server_
+
 Secrets Masking is applied to environment variables set within Project Settings or under Contexts. Environment variables may hold project secrets or keys that perform crucial functions for your applications. Secrets masking provides added security within CircleCI by obscuring environment variables in the job output when `echo` or `print` are used.
 
 The value of the environment variable will not be masked in the build output if:
@@ -463,9 +465,10 @@ For example using `curl`
 ```sh
 curl \
   --header "Content-Type: application/json" \
+  --header "Circle-Token: $CIRCLE_TOKEN" \
   --data '{"build_parameters": {"param1": "value1", "param2": 500}}' \
   --request POST \
-  https://circleci.com/api/v1.1/project/github/circleci/mongofinil/tree/master?circle-token=$CIRCLE_TOKEN
+  https://circleci.com/api/v1.1/project/github/circleci/mongofinil/tree/master
 ```
 
 In the above example,
@@ -478,7 +481,7 @@ export param1="value1"
 export param2="500"
 ```
 
-Start a run with the POST API call, see the [new build](https://circleci.com/docs/api/#trigger-a-new-build-with-a-branch) section of the API documentation for details. A POST with an empty body will start a new run of the named branch.
+Start a run with the POST API call, see the [new build](https://circleci.com/docs/api/v1/#trigger-a-new-build-with-a-branch) section of the API documentation for details. A POST with an empty body will start a new run of the named branch.
 
 ## Built-in Environment Variables
 
